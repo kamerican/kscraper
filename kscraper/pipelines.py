@@ -19,4 +19,5 @@ class KscraperPipeline(object):
             if url_to_dl not in urls_dled:
                 print(url_to_dl)
         print("!---End of listing")
+        # print(spider.start_urls)
         return item

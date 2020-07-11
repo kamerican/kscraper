@@ -67,7 +67,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'scrapy.pipelines.images.ImagesPipeline': 1,
-    'kscraper.pipelines.KscraperPipeline': 300,
+    # 'kscraper.pipelines.KscraperPipeline': 300,
 }
 IMAGES_STORE = str(Path(__file__).parent.parent / 'images')
 IMAGES_EXPIRES = 100
