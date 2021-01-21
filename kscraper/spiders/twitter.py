@@ -41,6 +41,7 @@ class TwitterSpider(scrapy.Spider):
         # print(id_list)
         tweets = api.statuses_lookup(id_=id_list, tweet_mode='extended')
         for tweet in tweets:
+            print(tweet.id)
             media_array = tweet.extended_entities['media']
             # print(media_array)
             for media in media_array:

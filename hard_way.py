@@ -104,6 +104,18 @@ class Downloader():
         print(result)
         print("Process took {} seconds.".format(round(time.time() - time_start)))
         return
+    def download_from_list_of_image_urls(self, url_list):
+        time_start = time.time()
+        image_url_list = url_list
+
+        n_images_downloaded = self._download_images_from_image_urls(image_url_list)
+
+        result = "Downloaded {0} images.".format(
+            n_images_downloaded,
+        )
+        print(result)
+        print("Process took {} seconds.".format(round(time.time() - time_start)))
+        return
     ### Private
     def _download_from_url(self, url):
         """
@@ -190,6 +202,14 @@ class Downloader():
                 image_file_name = str(naver_image_index) + ".jpg"
                 download_file_path = self.download_dir / image_file_name
                 naver_image_index += 1
+            elif self.website == "Given":
+                unformatted_url = image_url.rpartition("fname=")[2].rstrip()
+                image_url = unformatted_url.replace("%3A", ":").replace("%2F", "/")
+                print(unformatted_url)
+                print(image_url)
+                image_file_name = image_url.split('/')[-1] + '.jpg'
+                print(image_file_name)
+                download_file_path = self.download_dir / image_file_name
             else:
                 print("Website not selected at time of image download!")
                 break
@@ -239,7 +259,11 @@ if __name__ == "__main__":
         downloader = Downloader(website="Naver")
         downloader.download_from_html()
     elif args.case == 2:
-        pass
+        downloader = Downloader(website="Given")
+        urls = Path('user_input') / 'urls.txt'
+        with urls.open(mode='r', newline='') as f:
+            url_list = f.readlines()
+        downloader.download_from_list_of_image_urls(url_list)
     elif args.case == 3:
         pass
     else:
